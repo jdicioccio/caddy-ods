@@ -327,8 +327,8 @@ github.com/icrowley/fake v0.0.0-20180203215853-4178557ae428/go.mod h1:uhpZMVGzny
 github.com/imdario/mergo v0.3.8/go.mod h1:2EnlNZ0deacrJVfApfmtdGgDfMuh/nq6Ok1EcJh5FfA=
 github.com/inconshreveable/mousetrap v1.0.0/go.mod h1:PxqpIevigyE2G7u3NXJIT2ANytuPF1OarO4DADm73n8=
 github.com/influxdata/influxdb1-client v0.0.0-20191209144304-8bf82d3c094d/go.mod h1:qj24IKcXYK6Iy9ceXlo3Tc+vtHo9lIhSX5JddghvEPo=
-github.com/jdicioccio/libdns-ods v0.0.0-20240410082738-c1076c5dbc91 h1:joTARCzi5XU51Em6q8C6457nYs2S6lJptme1sWFqOuQ=
-github.com/jdicioccio/libdns-ods v0.0.0-20240410082738-c1076c5dbc91/go.mod h1:LUmWoN48BAD9Cbq8KOGd5qA5SPZ2CAHqHp7MELTjsr4=
+github.com/jdicioccio/libdns-ods v0.0.0-20240410084354-5c4d8fd22751 h1:zqWiBdhtAKk0NPDLUyPunCEVCxsAfHO4c29blWYQgWk=
+github.com/jdicioccio/libdns-ods v0.0.0-20240410084354-5c4d8fd22751/go.mod h1:LUmWoN48BAD9Cbq8KOGd5qA5SPZ2CAHqHp7MELTjsr4=
 github.com/jellevandenhooff/dkim v0.0.0-20150330215556-f50fe3d243e1/go.mod h1:E0B/fFc00Y+Rasa88328GlI/XbtyysCtTHZS8h7IrBU=
 github.com/jessevdk/go-flags v1.4.0/go.mod h1:4FA24M0QyGHXBuZZK/XkWh8h0e1EYbRYJSGM75WSRxI=
 github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af/go.mod h1:Nht3zPeWKUH0NzdCt2Blrr5ys8VGpn0CEB0cQHVjt7k=
