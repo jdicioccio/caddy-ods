@@ -1,15 +1,13 @@
-package template
+package ods
 
 import (
-	"fmt"
-
 	"github.com/caddyserver/caddy/v2"
 	"github.com/caddyserver/caddy/v2/caddyconfig/caddyfile"
-	libdnstemplate "github.com/libdns/template"
+	libdnsods "github.com/jdicioccio/libdns-ods"
 )
 
 // Provider lets Caddy read and manipulate DNS records hosted by this DNS provider.
-type Provider struct{ *libdnstemplate.Provider }
+type Provider struct{ *libdnsods.Provider }
 
 func init() {
 	caddy.RegisterModule(Provider{})
@@ -18,16 +16,19 @@ func init() {
 // CaddyModule returns the Caddy module information.
 func (Provider) CaddyModule() caddy.ModuleInfo {
 	return caddy.ModuleInfo{
-		ID:  "dns.providers.template",
-		New: func() caddy.Module { return &Provider{new(libdnstemplate.Provider)} },
+		ID:  "dns.providers.ods",
+		New: func() caddy.Module { return &Provider{new(libdnsods.Provider)} },
 	}
 }
 
 // TODO: This is just an example. Useful to allow env variable placeholders; update accordingly.
 // Provision sets up the module. Implements caddy.Provisioner.
 func (p *Provider) Provision(ctx caddy.Context) error {
-	p.Provider.APIToken = caddy.NewReplacer().ReplaceAll(p.Provider.APIToken, "")
-	return fmt.Errorf("TODO: not implemented")
+	p.Provider.Host = caddy.NewReplacer().ReplaceAll(p.Provider.Host, "")
+	p.Provider.User = caddy.NewReplacer().ReplaceAll(p.Provider.User, "")
+	p.Provider.Pass = caddy.NewReplacer().ReplaceAll(p.Provider.Pass, "")
+
+	return nil
 }
 
 // TODO: This is just an example. Update accordingly.
@@ -41,19 +42,45 @@ func (p *Provider) Provision(ctx caddy.Context) error {
 func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 	for d.Next() {
 		if d.NextArg() {
-			p.Provider.APIToken = d.Val()
+			p.Provider.Host = d.Val()
+		}
+		if d.NextArg() {
+			p.Provider.User = d.Val()
+		}
+		if d.NextArg() {
+			p.Provider.Pass = d.Val()
 		}
 		if d.NextArg() {
 			return d.ArgErr()
 		}
 		for nesting := d.Nesting(); d.NextBlock(nesting); {
 			switch d.Val() {
-			case "api_token":
-				if p.Provider.APIToken != "" {
-					return d.Err("API token already set")
+			case "host":
+				if p.Provider.Host != "" {
+					return d.Err("Host already set")
 				}
 				if d.NextArg() {
-					p.Provider.APIToken = d.Val()
+					p.Provider.Host = d.Val()
+				}
+				if d.NextArg() {
+					return d.ArgErr()
+				}
+			case "user":
+				if p.Provider.User != "" {
+					return d.Err("User already set")
+				}
+				if d.NextArg() {
+					p.Provider.User = d.Val()
+				}
+				if d.NextArg() {
+					return d.ArgErr()
+				}
+			case "pass":
+				if p.Provider.Pass != "" {
+					return d.Err("Pass already set")
+				}
+				if d.NextArg() {
+					p.Provider.Pass = d.Val()
 				}
 				if d.NextArg() {
 					return d.ArgErr()
@@ -63,8 +90,14 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 			}
 		}
 	}
-	if p.Provider.APIToken == "" {
-		return d.Err("missing API token")
+	if p.Provider.Host == "" {
+		p.Provider.Host = "ratbox.int.ods.org"
+	}
+	if p.Provider.User == "" {
+		return d.Err("missing User")
+	}
+	if p.Provider.Pass == "" {
+		return d.Err("missing Pass")
 	}
 	return nil
 }
